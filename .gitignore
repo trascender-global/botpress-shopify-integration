@@ -1,0 +1,4 @@
+node_modules
+.botpress
+.idea
+pnpm-lock.yaml

@@ -1,0 +1,24 @@
+{
+  "name": "new_shopify",
+  "integrationName": "new_shopify",
+  "scripts": {
+    "login": "bp login",
+    "start": "nodemon --watch \"./*\" --ext \"ts\" --exec \"bp deploy -y\"",
+    "gen": "bp gen",
+    "deploy": "bp deploy"
+  },
+  "private": true,
+  "dependencies": {
+    "@botpress/client": "0.24.0",
+    "@botpress/sdk": "0.8.36",
+    "@shopify/shopify-api": "^11.1.0",
+    "axios": "^1.7.2",
+    "query-string": "^9.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.17",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
