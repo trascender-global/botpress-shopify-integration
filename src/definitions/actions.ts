@@ -140,3 +140,19 @@ export const getCustomerOrders = {
     }),
   },
 }
+export const createCheckout = {
+  title: 'Create Checkout',
+  description: 'Create a checkout with items to pay',
+  input: {
+    schema: z.object({
+      products: z.string().describe("Array of products of the form {merchandiseId: '', quantity: ''} with JSON.stringify"),
+      conversationId: z.string()
+    }),
+    ui: {  }
+  },
+  output: {
+    schema: z.object({
+      checkoutInfo: z.object({}).passthrough()
+    }),
+  }
+}

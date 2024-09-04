@@ -9,12 +9,12 @@ type IntegrationContext = Parameters<UnregisterFunction>[0]['ctx']
 
 
 export const unregister: UnregisterFunction = async ({ ctx, logger, webhookUrl }) => {
-  const { accessToken, shopId } = ctx.configuration;
+  const { adminAccessToken, shopId } = ctx.configuration;
 
   const axiosConfig = {
     baseURL: `https://${shopId}.myshopify.com`,
     headers: {
-      'X-Shopify-Access-Token': accessToken,
+      'X-Shopify-Access-Token': adminAccessToken,
       'Content-Type': 'application/json',
     },
   }
@@ -48,12 +48,12 @@ async function deleteWebhook({
   ctx: IntegrationContext
   logger: IntegrationLogger
 }) {
-  const { accessToken, shopId } = ctx.configuration;
+  const { adminAccessToken, shopId } = ctx.configuration;
   try {
     const axiosConfig = {
       baseURL: `https://${shopId}.myshopify.com`,
       headers: {
-        'X-Shopify-Access-Token': accessToken,
+        'X-Shopify-Access-Token': adminAccessToken,
         'Content-Type': 'application/json',
       },
     }

@@ -4,7 +4,8 @@ import {
   getProducts,
   getCustomers,
   getCustomerOrders,
-  getProductVariants
+  getProductVariants,
+  createCheckout
 } from "./src/definitions/actions";
 
 export default new IntegrationDefinition({
@@ -16,7 +17,8 @@ export default new IntegrationDefinition({
   configuration: {
     schema: z.object({
       shopId: z.string(),
-      accessToken: z.string(),
+      adminAccessToken: z.string(),
+      storefrontAccessToken: z.string(),
     })
   },
 
@@ -24,14 +26,17 @@ export default new IntegrationDefinition({
     getProducts,
     getProductVariants,
     getCustomers,
-    getCustomerOrders
+    getCustomerOrders,
+    createCheckout
   },
 
   events: {
-    customerCreated: {
-      title: 'Create Customer',
+    orderPaid: {
+      title: 'Order Paid',
       schema: z.object({
-        id: z.number()
+        conversationId: z.string(),
+        idOrder: z.number(),
+        cartToken: z.string(),
       }),
       ui: {}
     }

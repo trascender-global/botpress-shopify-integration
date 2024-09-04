@@ -6,17 +6,16 @@ import { IntegrationProps } from ".botpress";
 type GetProducts = IntegrationProps['actions']['getProducts']
 
 export const getProducts: GetProducts = async ({ ctx, input, logger }) => {
-  const { accessToken, shopId } = ctx.configuration;
+  const { adminAccessToken, shopId } = ctx.configuration;
   const { ids, limit, product_type, title } = input;
 
   axios.defaults.baseURL = `https://${shopId}.myshopify.com`;
-  axios.defaults.headers['X-Shopify-Access-Token'] = accessToken;
+  axios.defaults.headers['X-Shopify-Access-Token'] = adminAccessToken;
 
   const filters = qs.stringify({ ids, limit, product_type, title })
 
   try {
     const { data } = await axios.get(`/admin/api/${LATEST_API_VERSION}/products.json?${filters}`);
-    logger.forBot().info(`'Get Products List: ' ${data.products.length} Products.`);
 
     return { listProducts: data.products }
   } catch (error) {
