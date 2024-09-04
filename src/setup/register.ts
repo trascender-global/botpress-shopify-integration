@@ -7,7 +7,7 @@ type Implementation = ConstructorParameters<typeof Integration>[0]
 type RegisterFunction = Implementation['register']
 type IntegrationContext = Parameters<RegisterFunction>[0]['ctx']
 
-const TOPICS: string[] = ['orders/create', 'customers/create', 'orders/paid'];
+const TOPICS: string[] = ['orders/paid'];
 
 
 export const register: RegisterFunction = async ({ctx, logger, webhookUrl}) => {
@@ -29,13 +29,13 @@ async function createWebhook({
   logger: IntegrationLogger
   webhookUrl: string
 }) {
-  const { accessToken, shopId } = ctx.configuration;
+  const { adminAccessToken, shopId } = ctx.configuration;
   const topicReadable = topic.replace('/', ' ')
 
   const axiosConfig = {
     baseURL: `https://${shopId}.myshopify.com`,
     headers: {
-      'X-Shopify-Access-Token': accessToken,
+      'X-Shopify-Access-Token': adminAccessToken,
       'Content-Type': 'application/json',
     },
   }

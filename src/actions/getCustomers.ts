@@ -6,11 +6,11 @@ import { IntegrationProps } from ".botpress";
 type GetCustomers = IntegrationProps['actions']['getCustomers']
 
 export const getCustomers: GetCustomers = async ({ ctx, input, logger }) => {
-  const { accessToken, shopId } = ctx.configuration;
+  const { adminAccessToken, shopId } = ctx.configuration;
   const { ids, limit } = input;
 
   axios.defaults.baseURL = `https://${shopId}.myshopify.com`;
-  axios.defaults.headers['X-Shopify-Access-Token'] = accessToken;
+  axios.defaults.headers['X-Shopify-Access-Token'] = adminAccessToken;
 
   const filters = qs.stringify({ ids, limit })
 

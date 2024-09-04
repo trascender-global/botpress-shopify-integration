@@ -6,11 +6,11 @@ import { IntegrationProps } from ".botpress";
 type GetProductVariants = IntegrationProps['actions']['getProductVariants']
 
 export const getProductVariants: GetProductVariants = async ({ ctx, input, logger }) => {
-  const { accessToken, shopId } = ctx.configuration;
+  const { adminAccessToken, shopId } = ctx.configuration;
   const { limit, product_id } = input;
 
   axios.defaults.baseURL = `https://${shopId}.myshopify.com`;
-  axios.defaults.headers['X-Shopify-Access-Token'] = accessToken;
+  axios.defaults.headers['X-Shopify-Access-Token'] = adminAccessToken;
 
   const filters = qs.stringify({ limit, product_id });
 
