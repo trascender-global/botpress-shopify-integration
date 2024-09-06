@@ -20,7 +20,7 @@ export const getCustomerOrders: GetCustomerOrders = async ({ ctx, input, logger 
 
     return { listCustomerOrders: data.orders }
   } catch (error) {
-    logger.forBot().debug(`'Get Customers Orders List' Error ${JSON.stringify(error)}`);
+    logger.forBot().debug(`'Get Customers Orders List' Error ${error}`);
     return { listCustomerOrders: {} };
   }
 }

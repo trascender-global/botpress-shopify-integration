@@ -20,7 +20,7 @@ export const getCustomers: GetCustomers = async ({ ctx, input, logger }) => {
 
     return { listCustomers: data.customers }
   } catch (error) {
-    logger.forBot().debug(`'Get Customers List' Error ${JSON.stringify(error)}`);
+    logger.forBot().debug(`'Get Customers List' Error ${error}`);
     return { listCustomers: {} };
   }
 }

@@ -39,6 +39,41 @@ export default new IntegrationDefinition({
         cartToken: z.string(),
       }),
       ui: {}
+    },
+
+    customerCreated: {
+      title: 'Customer Created',
+      schema: z.object({
+        customerCreatedResponse: z.object({}).passthrough()
+      }),
+    },
+
+    customerUpdated: {
+      title: 'Customer Updated',
+      schema: z.object({
+        customerUpdatedResponse: z.object({}).passthrough()
+      }),
+    },
+
+    orderCreated: {
+      title: 'Order Created',
+      schema: z.object({
+        orderCreatedResponse: z.object({}).passthrough()
+      }),
+    },
+
+    orderUpdated: {
+      title: 'Order Updated',
+      schema: z.object({
+        orderUpdatedResponse: z.object({}).passthrough()
+      }),
+    },
+
+    orderCancelled: {
+      title: 'Order Cancelled',
+      schema: z.object({
+        orderCancelledResponse: z.object({}).passthrough()
+      }),
     }
   }
 })

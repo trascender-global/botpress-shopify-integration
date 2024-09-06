@@ -20,7 +20,7 @@ export const getProductVariants: GetProductVariants = async ({ ctx, input, logge
 
     return { listProductVariants: data.variants }
   } catch (error) {
-    logger.forBot().debug(`'Get Product Variants List' Error ${JSON.stringify(error)}`);
+    logger.forBot().debug(`'Get Product Variants List' Error ${error}`);
     return { listProductVariants: {} };
   }
 }

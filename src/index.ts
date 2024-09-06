@@ -51,15 +51,65 @@ export default new Integration({
       const existsConversationId = note_attributes.find((val: any) => val.name === 'BpConversationId');
 
       if (existsConversationId) {
-      await client.createEvent({
+        await client.createEvent({
           type: 'orderPaid',
-        payload: {
+          payload: {
             conversationId: existsConversationId.value,
             idOrder: id,
             cartToken: cart_token,
-        },
+          },
+        })
+      }
+    }
+
+    if (req.headers['x-shopify-topic'] === 'customers/create') {
+      logger.forBot().info(`CREATE: ${JSON.stringify(body)}`);
+      await client.createEvent({
+        type: 'customerCreated',
+        payload: {
+          customerCreatedResponse: body
+        }
       })
     }
+
+    if (req.headers['x-shopify-topic'] === 'customers/update') {
+      logger.forBot().info(`UPDATE: ${JSON.stringify(body)}`);
+      await client.createEvent({
+        type: 'customerUpdated',
+        payload: {
+          customerUpdatedResponse: body
+        }
+      })
+    }
+
+    if (req.headers['x-shopify-topic'] === 'orders/create') {
+      logger.forBot().info(`ORDER CREATED: ${JSON.stringify(body)}`);
+      await client.createEvent({
+        type: 'orderCreated',
+        payload: {
+          orderCreatedResponse: body
+        }
+      })
+    }
+
+    if (req.headers['x-shopify-topic'] === 'orders/updated') {
+      logger.forBot().info(`ORDER UPDATED: ${JSON.stringify(body)}`);
+      await client.createEvent({
+        type: 'orderUpdated',
+        payload: {
+          orderUpdatedResponse: body
+        }
+      })
+    }
+
+    if (req.headers['x-shopify-topic'] === 'orders/cancelled') {
+      logger.forBot().info(`ORDER CANCELLED: ${JSON.stringify(body)}`);
+      await client.createEvent({
+        type: 'orderCancelled',
+        payload: {
+          orderCancelledResponse: body
+        }
+      })
     }
   },
 })

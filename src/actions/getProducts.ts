@@ -19,7 +19,7 @@ export const getProducts: GetProducts = async ({ ctx, input, logger }) => {
 
     return { listProducts: data.products }
   } catch (error) {
-    logger.forBot().debug(`'Get Products List' Error ${JSON.stringify(error)}`);
+    logger.forBot().debug(`'Get Products List' Error ${error}`);
     return { listProducts: {} };
   }
 }

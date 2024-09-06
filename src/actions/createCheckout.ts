@@ -11,6 +11,9 @@ export const createCheckout: CreateCheckout = async ({ ctx, input, logger }) => 
   axios.defaults.baseURL = `https://${shopId}.myshopify.com`;
   axios.defaults.headers['X-Shopify-Storefront-Access-Token'] = storefrontAccessToken;
 
+  /* Products string is converted to be matching with GraphQL */
+  let prodsConverted = products.replace(/"([^"]+)":/g, '$1:').replace(/:"(\d+)"/g, ':$1');
+
   try {
     const query = `
       mutation { 
@@ -22,7 +25,7 @@ export const createCheckout: CreateCheckout = async ({ ctx, input, logger }) => 
                 value: "${conversationId}"
               }
             ],
-            lines: ${products}
+            lines: ${prodsConverted}
           }
         ) { 
           cart { 
@@ -41,7 +44,7 @@ export const createCheckout: CreateCheckout = async ({ ctx, input, logger }) => 
 
     return { checkoutInfo: response.data.data.cartCreate.cart }
   } catch (error) {
-    logger.forBot().debug(`'Create Checkout' Error ${JSON.stringify(error)}`);
+    logger.forBot().debug(`'Create Checkout' Error ${error}`);
     return { checkoutInfo: {} };
   }
 }
