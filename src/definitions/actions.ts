@@ -42,7 +42,6 @@ export const getProducts = {
         image: z.object({}).passthrough()
       }))
     }),
-
   }
 }
 

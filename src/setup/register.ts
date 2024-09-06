@@ -7,7 +7,7 @@ type Implementation = ConstructorParameters<typeof Integration>[0]
 type RegisterFunction = Implementation['register']
 type IntegrationContext = Parameters<RegisterFunction>[0]['ctx']
 
-const TOPICS: string[] = ['orders/paid'];
+const TOPICS: string[] = ['customers/create', 'customers/update', 'orders/create', 'orders/updated', 'orders/cancelled', 'orders/paid'];
 
 
 export const register: RegisterFunction = async ({ctx, logger, webhookUrl}) => {
