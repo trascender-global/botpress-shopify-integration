@@ -16,11 +16,9 @@ export const getProductVariants: GetProductVariants = async ({ ctx, input, logge
 
   try {
     const { data } = await axios.get(`/admin/api/${LATEST_API_VERSION}/variants.json?${filters}`);
-    logger.forBot().info(`'Get Product Variants List: ' ${data.variants.length} Variants found.`);
-
     return { listProductVariants: data.variants }
   } catch (error) {
-    logger.forBot().debug(`'Get Product Variants List' Error ${error}`);
+    logger.forBot().error(`'Get Product Variants List' Error ${error}`);
     return { listProductVariants: {} };
   }
 }

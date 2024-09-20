@@ -16,10 +16,9 @@ export const getProducts: GetProducts = async ({ ctx, input, logger }) => {
 
   try {
     const { data } = await axios.get(`/admin/api/${LATEST_API_VERSION}/products.json?${filters}`);
-
     return { listProducts: data.products }
   } catch (error) {
-    logger.forBot().debug(`'Get Products List' Error ${error}`);
+    logger.forBot().error(`'Get Products List' Error ${error}`);
     return { listProducts: {} };
   }
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Integration, IntegrationProps} from '../../.botpress'
+import { Integration, IntegrationProps } from '../../.botpress'
 import { LATEST_API_VERSION } from "@shopify/shopify-api";
 
 type IntegrationLogger = Parameters<IntegrationProps['handler']>[0]['logger']
@@ -10,7 +10,7 @@ type IntegrationContext = Parameters<RegisterFunction>[0]['ctx']
 const TOPICS: string[] = ['customers/create', 'customers/update', 'orders/create', 'orders/updated', 'orders/cancelled', 'orders/paid'];
 
 
-export const register: RegisterFunction = async ({ctx, logger, webhookUrl}) => {
+export const register: RegisterFunction = async ({ ctx, logger, webhookUrl }) => {
   await Promise.all(
     TOPICS.map(async (topic) => {
       await createWebhook({ topic, ctx, logger, webhookUrl });
@@ -23,7 +23,7 @@ async function createWebhook({
   ctx,
   logger,
   webhookUrl,
- }: {
+}: {
   topic: string
   ctx: IntegrationContext
   logger: IntegrationLogger
@@ -49,10 +49,9 @@ async function createWebhook({
     if (response.data.webhooks.length > 0) {
       logger
         .forBot()
-        .info(
-          `Shopify "${topicReadable}" Webhook was found with id ${response.data.webhooks[0].id.toString()} for Bot ${
-            ctx.botId
-          }. Webhook was not created`
+        .warn(
+          `Shopify webhook for "${topicReadable}" already exists with ID ${response.data.webhooks[0].id.toString()} for bot ID ${ctx.botId
+          }. No new webhook was created.`
         )
       return
     }
@@ -69,11 +68,6 @@ async function createWebhook({
       axiosConfig
     )
 
-    logger
-      .forBot()
-      .info(
-        `Shopify ${topicReadable} Webhook Created ${response.data.webhook.id.toString()} for Bot with Id ${ctx.botId}`
-      )
     return response.data.webhook.id.toString()
   } catch (e) {
     logger.forBot().error(`'Shopify ${topicReadable} Webhook Creation' exception ${JSON.stringify(e)}`)

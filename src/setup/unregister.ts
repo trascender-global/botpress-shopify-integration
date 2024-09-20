@@ -1,6 +1,6 @@
 import axios from "axios";
 import type * as botpress from '../../.botpress'
-import {LATEST_API_VERSION} from "@shopify/shopify-api";
+import { LATEST_API_VERSION } from "@shopify/shopify-api";
 
 type IntegrationLogger = Parameters<botpress.IntegrationProps['handler']>[0]['logger']
 type Implementation = ConstructorParameters<typeof botpress.Integration>[0]
@@ -21,17 +21,8 @@ export const unregister: UnregisterFunction = async ({ ctx, logger, webhookUrl }
 
   let response = await axios.get(`/admin/api/${LATEST_API_VERSION}/webhooks.json?address=${webhookUrl}`, axiosConfig);
 
+  // Webhook exist
   if (response.data.webhooks.length > 0) {
-    logger
-      .forBot()
-      .info(
-        `Shopify "${
-          response.data.webhooks.topic
-        }" Webhook was found with id ${response.data.webhooks[0].id.toString()} for Bot ${
-          ctx.botId
-        }. Webhook was not created`
-      )
-
     for (const webhook of response.data.webhooks) {
       const webhookId = webhook.id
       await deleteWebhook({ webhookId, ctx, logger })
@@ -40,9 +31,9 @@ export const unregister: UnregisterFunction = async ({ ctx, logger, webhookUrl }
 }
 
 async function deleteWebhook({
- webhookId,
- ctx,
- logger,
+  webhookId,
+  ctx,
+  logger,
 }: {
   webhookId: string
   ctx: IntegrationContext

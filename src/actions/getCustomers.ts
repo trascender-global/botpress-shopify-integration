@@ -16,11 +16,9 @@ export const getCustomers: GetCustomers = async ({ ctx, input, logger }) => {
 
   try {
     const { data } = await axios.get(`/admin/api/${LATEST_API_VERSION}/customers.json?${filters}`);
-    logger.forBot().info(`'Get Customers List: ' ${data.customers.length} Customers.`);
-
     return { listCustomers: data.customers }
   } catch (error) {
-    logger.forBot().debug(`'Get Customers List' Error ${error}`);
+    logger.forBot().error(`'Get Customers List' Error ${error}`);
     return { listCustomers: {} };
   }
 }

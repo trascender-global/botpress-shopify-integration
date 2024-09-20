@@ -1,6 +1,6 @@
 import { IntegrationProps } from ".botpress";
 import axios from "axios";
-import {LATEST_API_VERSION} from "@shopify/shopify-api";
+import { LATEST_API_VERSION } from "@shopify/shopify-api";
 
 type CreateCheckout = IntegrationProps['actions']['createCheckout']
 
@@ -40,11 +40,11 @@ export const createCheckout: CreateCheckout = async ({ ctx, input, logger }) => 
       }
     `;
 
-    const response = await axios.post(`/api/${LATEST_API_VERSION}/graphql.json`, {query});
+    const response = await axios.post(`/api/${LATEST_API_VERSION}/graphql.json`, { query });
 
     return { checkoutInfo: response.data.data.cartCreate.cart }
   } catch (error) {
-    logger.forBot().debug(`'Create Checkout' Error ${error}`);
+    logger.forBot().error(`'Create Checkout' Error ${error}`);
     return { checkoutInfo: {} };
   }
 }
