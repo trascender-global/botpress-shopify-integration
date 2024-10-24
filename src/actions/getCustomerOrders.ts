@@ -5,7 +5,11 @@ import { IntegrationProps } from ".botpress";
 
 type GetCustomerOrders = IntegrationProps['actions']['getCustomerOrders'];
 
-export const getCustomerOrders: GetCustomerOrders = async ({ ctx, input, logger }) => {
+export const getCustomerOrders: GetCustomerOrders = async ({
+  ctx,
+  input,
+  logger
+}) => {
   const { adminAccessToken, shopId } = ctx.configuration;
   const { customer_id, status } = input;
 

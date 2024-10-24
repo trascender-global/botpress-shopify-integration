@@ -5,13 +5,16 @@ import {
   getCustomers,
   getCustomerOrders,
   getProductVariants,
-  createCheckout
+  createCheckout,
+  makeApiRequest,
+  getSmartCollections,
+  getSmartCollectionProducts
 } from "./src/definitions/actions";
 
 export default new IntegrationDefinition({
   name: integrationName,
   title: "Shopify",
-  version: '0.0.1',
+  version: '0.0.2',
   readme: 'hub.md',
   icon: 'icon.svg',
 
@@ -28,7 +31,11 @@ export default new IntegrationDefinition({
     getProductVariants,
     getCustomers,
     getCustomerOrders,
-    createCheckout
+    createCheckout,
+    makeApiRequest,
+    getSmartCollections,
+    getSmartCollectionProducts
+
   },
 
   events: {

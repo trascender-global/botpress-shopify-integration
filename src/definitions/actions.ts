@@ -139,6 +139,7 @@ export const getCustomerOrders = {
     }),
   },
 }
+
 export const createCheckout = {
   title: 'Create Checkout',
   description: 'Create a checkout with items to pay',
@@ -147,11 +148,117 @@ export const createCheckout = {
       products: z.string().describe("Array of products of the form {merchandiseId: '', quantity: ''} with JSON.stringify"),
       conversationId: z.string()
     }),
-    ui: {  }
+    ui: {}
   },
   output: {
     schema: z.object({
       checkoutInfo: z.object({}).passthrough()
     }),
+  }
+}
+
+export const makeApiRequest = {
+  title: 'Make API request',
+  description: 'Make a custom API request',
+  input: {
+    schema: z.object({
+      method: z
+        .string()
+        .describe(
+          'The HTTP method to use for the request. Options: GET, POST, PUT, DEL'
+        ),
+      path: z
+        .string()
+        .describe(
+          'The endpoint of the request. Only paths after "/api/2024-07" is needed. Example: products.json'
+        ),
+      headers: z
+        .string()
+        .optional()
+        .describe(
+          'The headers to include in the request (JSON Stringified). Example: { "Content-Type": "application/json" }'
+        ),
+      params: z
+        .string()
+        .optional()
+        .describe(
+          'The query parameters to include in the request (JSON Stringified). Example: { "limit": 10 }'
+        ),
+      requestBody: z
+        .string()
+        .optional()
+        .describe(
+          'The body of the request (JSON Stringified). Example: { "product": { "title": "Simply Great Product", "variants": [{ "price": "199.99" }] } }'
+        ),
+    }),
+    ui: {
+      method: {
+        title: "Request Method",
+        examples: ["GET", "POST", "PUT", "DELETE"]
+      },
+      path: {
+        title: 'Request Path',
+        examples: ['/products.json', '/custom_collections.json'],
+      },
+      headers: {
+        title: 'Request Headers',
+        examples: ['{ "Content-Type": "application/json" }']
+      },
+      params: {
+        title: 'Query Parameters',
+      },
+      requestBody: {
+        title: 'Request Body',
+      },
+    },
+  },
+  output: {
+    schema: z.object({
+      requestResponse: z.object({}).passthrough(),
+    }),
+  }
+}
+
+export const getSmartCollections = {
+  title: 'Get Smart Collection List',
+  description: 'Gets a list of all smart collections based on the parameters',
+  input: {
+    schema: z.object({
+      ids: z.string().optional().describe('Comma-separated list of product IDs.'),
+      title: z.string().optional().describe('The exact smart collection title.')
+    }),
+    ui: {
+      ids: {
+        title: "Smart Collections IDs"
+      },
+      title: {
+        title: "Smart Collection Title"
+      }
+    }
+  },
+  output: {
+    schema: z.object({
+      listSmartCollections: z.array(z.object({}).passthrough())
+    })
+  }
+}
+
+export const getSmartCollectionProducts = {
+  title: "Get Smart Collection Products",
+  description: "Gets a list of all smart collection products",
+  input: {
+    schema: z.object({
+      id: z.string().describe("Smart Collection ID"),
+    }),
+    ui: {
+      id: {
+        title: "Smart Collection ID"
+      }
+    }
+  },
+  output: {
+    schema: z.object({
+      listSmartCollectionProducts: z.array(z.object({}).passthrough())
+    })
   }
 }

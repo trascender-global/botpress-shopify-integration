@@ -1,6 +1,6 @@
 {
-  "name": "new_shopify",
-  "integrationName": "new_shopify",
+  "name": "shopify",
+  "integrationName": "tg_ecommerce/new_shopify",
   "scripts": {
     "login": "bp login",
     "start": "nodemon --watch \"./*\" --ext \"ts\" --exec \"bp deploy -y\"",

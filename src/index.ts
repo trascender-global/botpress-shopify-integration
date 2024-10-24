@@ -6,6 +6,9 @@ import { getCustomers } from "./actions/getCustomers";
 import { getCustomerOrders } from "./actions/getCustomerOrders";
 import { getProductVariants } from "./actions/getProductVariants";
 import { createCheckout } from "./actions/createCheckout";
+import { makeApiRequest } from './actions/makeApiRequest';
+import { getSmartCollections } from './actions/getSmartCollections';
+import { getSmartCollectionProducts } from './actions/getSmartCollectionProducts';
 import { IntegrationContext } from "@botpress/sdk";
 
 
@@ -18,7 +21,10 @@ export default new Integration({
     getCustomers,
     getCustomerOrders,
     getProductVariants,
-    createCheckout
+    createCheckout,
+    makeApiRequest,
+    getSmartCollections,
+    getSmartCollectionProducts
   },
 
   channels: {},
