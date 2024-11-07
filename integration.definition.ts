@@ -14,6 +14,7 @@ import {
 export default new IntegrationDefinition({
   name: integrationName,
   title: "Shopify",
+  description: "Connect your AI agent to Shopify, allowing you to interact with, and listen to products, customers, orders, and more.",
   version: '0.0.3',
   readme: 'hub.md',
   icon: 'icon.svg',
