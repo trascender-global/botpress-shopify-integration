@@ -14,7 +14,7 @@ import {
 export default new IntegrationDefinition({
   name: integrationName,
   title: "Shopify",
-  version: '0.0.2',
+  version: '0.0.3',
   readme: 'hub.md',
   icon: 'icon.svg',
 
